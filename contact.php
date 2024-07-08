@@ -33,6 +33,7 @@
 
 <body>
 
+
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -43,16 +44,24 @@
         <h1>Photography</h1>
       </a>
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
+      <?php include_once("template/nav.php"); ?>
+      <?php require_once("includes/db2_connect.php"); ?>
+      <?php
+     if(isset($_POST["send_message"])){
+      $email = mysqli_real_escape_string($conn, $_POST["email"]);
+      $subject = mysqli_real_escape_string($conn, $_POST["subject"]);
+      $message = mysqli_real_escape_string($conn, $_POST["message"]);
+  
+      $insert_message = "INSERT INTO users (email, subject, message) VALUES ('$email', '$subject', '$message')";
+  
+      if ($conn->query($insert_message) === TRUE) {
+          header("Location: View_Messages.php");
+          exit();
+      } else {
+          echo "Error: " . $insert_message . "<br>" . $conn->error;
+      }
+  }
+      ?>
       <div class="header-social-links">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -67,92 +76,90 @@
 
 
 
-    
-    <div class="page-header d-flex align-items-center">
-      <div class="container position-relative">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-6 text-center">
-            <h2>Get in touch</h2>
-            <p>We provide 24 hrs service</p>
 
-          </div>
+  <div class="page-header d-flex align-items-center">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Get in touch</h2>
+          <p>We provide 24 hrs service</p>
+
         </div>
       </div>
     </div>
+  </div>
 
-    
-    <section id="contact" class="contact">
-      <div class="container">
 
-        <div class="row gy-4 justify-content-center">
+  <section id="contact" class="contact">
+    <div class="container">
 
-          <div class="col-lg-3">
-            <div class="info-item d-flex">
-              <i class="bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h4>Location:</h4>
-                <p>Nairobi,Kenya</p>
-              </div>
+      <div class="row gy-4 justify-content-center">
+
+        <div class="col-lg-3">
+          <div class="info-item d-flex">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h4>Location:</h4>
+              <p>Nairobi,Kenya</p>
             </div>
-          </div><!-- End Info Item -->
+          </div>
+        </div><!-- End Info Item -->
 
-          <div class="col-lg-3">
-            <div class="info-item d-flex">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h4>Email:</h4>
-                <p>omoiibrahim@gmail.com</p>
-              </div>
+        <div class="col-lg-3">
+          <div class="info-item d-flex">
+            <i class="bi bi-envelope flex-shrink-0"></i>
+            <div>
+              <h4>Email:</h4>
+              <p>omoiibrahim@gmail.com</p>
             </div>
-          </div><!-- End Info Item -->
+          </div>
+        </div><!-- End Info Item -->
 
-          <div class="col-lg-3">
-            <div class="info-item d-flex">
-              <i class="bi bi-phone flex-shrink-0"></i>
-              <div>
-                <h4>Call;</h4>
-                <p>+254719651114</p>
-              </div>
+        <div class="col-lg-3">
+          <div class="info-item d-flex">
+            <i class="bi bi-phone flex-shrink-0"></i>
+            <div>
+              <h4>Call;</h4>
+              <p>+254719651114</p>
             </div>
-          </div><!-- End Info Item -->
-
-        </div>
-
-        <div class="row justify-content-center mt-4">
-
-          <div class="col-lg-9">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you.</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
+          </div>
+        </div><!-- End Info Item -->
 
       </div>
-    </section><!-- End Contact Section -->
+
+      <div class="row justify-content-center mt-4">
+
+        <div class="col-lg-9">
+          <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <label for="fn">Fullname:</label><br>
+            <input type="text" id="fn" placeholder="fullname" name="fullname" required><br><br>
+
+            <label for="em">Email Address:</label><br>
+            <input type="email" id="em" placeholder="Email Address" name="email" required><br><br>
+
+            <label for="sb">Subject:</label><br>
+            <select name="subject" id="sb" required>
+              <option value="">--Select Subject--</option>
+              <option value="Portrait Photography">Portrait Photography</option>
+              <option value="Sports Photography">Sports Photography</option>
+              <option value="Wedding Photography">Wedding Photography</option>
+            </select><br><br>
+
+            <label for="sb">Message:</label><br>
+            <textarea name="message" id="" cols="30" rows="5" required></textarea><br><br>
+
+            <input type="submit" name="send_message" value="Send Message">
+          </form>
+        </div><!-- End Contact Form -->
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 
- 
+
   <footer id="footer" class="footer">
     <div class="container">
       <div class="copyright">
