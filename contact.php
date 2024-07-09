@@ -110,7 +110,7 @@
             <i class="bi bi-envelope flex-shrink-0"></i>
             <div>
               <h4>Email:</h4>
-              <p>omoiibrahim@gmail.com.</p>
+              <p>omoiibrahim@gmail.com</p>
             </div>
           </div>
         </div><!-- End Info Item -->
