@@ -67,7 +67,7 @@
             <h2>About</h2>
             <p>Photographs play a very important role in everyone's life, they connect us to our past, they remind us of people, places, feelings, and stories. They also help us to know who we are.</p>
 
-            <a class="cta-btn" href="contact.html">Available for hir</a>
+            <a class="cta-btn" href="contact.html">Available for hire</a>
 
           </div>
         </div>
