@@ -65,7 +65,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>About</h2>
-            <p>Photographs play a ver important role in everyone's life, they connect us to our past, they remind us of people, places, feelings, and stories. They also help us to know who we are.</p>
+            <p>Photographs play a very important role in everyone's life, they connect us to our past, they remind us of people, places, feelings, and stories. They also help us to know who we are.</p>
 
             <a class="cta-btn" href="contact.html">Available for hire</a>
 
